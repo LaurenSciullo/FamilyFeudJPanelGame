@@ -1,3 +1,4 @@
+import java.awt.print.Book;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
@@ -13,6 +14,8 @@ public class famFeudQuestions
 		 static String answer;
 		 static int counter;
 		 
+		 static ImageIcon winning = new ImageIcon(("winningGif.gif"));
+		 static ImageIcon losing = new ImageIcon(("losingGif.gif"));
 		
 		public static void famFuedWelcome()
 		{
@@ -21,32 +24,38 @@ public class famFeudQuestions
 			JOptionPane.showMessageDialog(frame, "Hello and welcome to single player Family Feud! ", null, 0, harvey);
 			
 			
+			
 			 name = JOptionPane.showInputDialog("Please enter your name:");	
 			 
-			 Object[] directions = {"Directions", "No Directions"};
-				int noDirections  = JOptionPane.showOptionDialog(frame, name + ", would you like directions?",
-						 name, JOptionPane.YES_NO_CANCEL_OPTION,
+			 final String[] directions = {"Directions", "No Directions"};
+				String  noDirections  = (String) JOptionPane.showInputDialog(frame, name + ", would you like directions?",
+						 name, 
 						JOptionPane.QUESTION_MESSAGE,
-						null, directions, directions[1]);
+						null, directions, directions[0]);
 				
-				if (noDirections == 0)
+				if (noDirections == directions[0])
 					{
 						
 							directions();	
-							question1();
+							question1();	
 							question2();
 							question3();
 							question4();
+							question5();
+							question6();
+					
 							
 							
 
 					}
-				else if (noDirections == 1)
+				else if (noDirections == directions[1])
 					{
 							question1();	
 							question2();
 							question3();
 							question4();
+							question5();
+							question6();
 							
 							
 					}
@@ -54,6 +63,7 @@ public class famFeudQuestions
 				ImageIcon endGame = new ImageIcon(("famFeudWin.jpg"));
 			
 				JOptionPane.showMessageDialog(frame, "Thanks for playing!", null, 0, endGame);
+				
 			
 		}
 		
@@ -65,7 +75,8 @@ public class famFeudQuestions
 					+ "\nIf your answer was correct you get a point. "
 					+ "\nThe more popular your answer was in the survey the more points you get. "
 					+ "\nIf your answer is wrong, you do not get any points. "
-					+ "\nTry to get as many points as possible. "
+					+ "\nTry to get as many points as possible."
+					+ "\nType your answer in all lowercase letters except for names, capitalize the first letter of names. "
 					+ "\nGood luck!");
 		}
 		public static void question1()
@@ -76,8 +87,9 @@ public class famFeudQuestions
 				
 			if (answer.contains("broken"))
 				{
-					JOptionPane.showMessageDialog(frame,"Correct! Top answer.");
+					JOptionPane.showMessageDialog(frame,"Correct! Top answer.", null, 0, winning);
 					counter += 4;
+			
 				}
 			else if (answer.contains("ugly")) 
 				{
@@ -100,7 +112,7 @@ public class famFeudQuestions
 			else
 				{
 					JOptionPane.showMessageDialog(frame,"Sorry that was not an answer."
-							+ "\nTop answer was: broken ");
+							+ "\nTop answer was: broken ", null, 0, losing);
 				}
 			
 				JOptionPane.showMessageDialog(frame,  "Total points: " + counter);
@@ -113,10 +125,10 @@ public class famFeudQuestions
 			
 			if (answer.contains("church"))
 				{
-					JOptionPane.showMessageDialog(frame,"Correct! Top answer.");
+					JOptionPane.showMessageDialog(frame,"Correct! Top answer.", null, 0, winning);
 					counter += 4;
 				}
-			else if (answer.contains("groceries/shopping")) 
+			else if (answer.contains("groceries") || answer.contains("shopping")) 
 				{
 					JOptionPane.showMessageDialog(frame,"Correct!"
 							+ "\nTop answer was: church");
@@ -137,7 +149,7 @@ public class famFeudQuestions
 			else
 				{
 					JOptionPane.showMessageDialog(frame,"Sorry that was not an answer. "
-							+ "\nTop answer was: church");
+							+ "\nTop answer was: church", null, 0, losing);
 					
 				}
 				
@@ -147,11 +159,11 @@ public class famFeudQuestions
 		public static void question3()
 		{
 			
-			answer = JOptionPane.showInputDialog("Who was the most popular character on the sitcom Friends?");
+			answer = JOptionPane.showInputDialog("Who was the most popular character on the sitcom Friends? \nCapitalize name.");
 			
 			if (answer.contains("Rachel"))
 				{
-					JOptionPane.showMessageDialog(frame,"Correct! Top answer.");
+					JOptionPane.showMessageDialog(frame,"Correct! Top answer.", null, 0, winning);
 					counter += 4;
 				}
 			else if (answer.contains("Joey")) 
@@ -175,7 +187,7 @@ public class famFeudQuestions
 			else
 				{
 					JOptionPane.showMessageDialog(frame,"Sorry that was not an answer. "
-							+ "\nTop answer was: Rachel");
+							+ "\nTop answer was: Rachel", null, 0, losing);
 					
 				}
 				
@@ -188,38 +200,115 @@ public class famFeudQuestions
 			answer = JOptionPane.showInputDialog("Name a liquid in your kitchen that you hope "
 					+ "no one ever accidentally drinks");
 			
-			if (answer.contains("soap"))
+			if (answer.contains("soap") || answer.contains("bleach"))
 				{
-					JOptionPane.showMessageDialog(frame,"Correct! Top answer.");
+					JOptionPane.showMessageDialog(frame,"Correct! Top answer.", null, 0, winning);
 					counter+=4;
 				}
 			else if (answer.contains("vinegar")) 
 				{
 					JOptionPane.showMessageDialog(frame,"Correct!"
-							+ "\nTop answer was: soap");
+							+ "\nTop answer was: soap or bleach");
 					counter+=3;
 				}
 			else if (answer.contains("cooking oil"))
 				{
 					JOptionPane.showMessageDialog(frame,"Correct!"
-							+ "\nTop answer was: soap");
+							+ "\nTop answer was: soap or bleach");
 					counter+=2;
 				}
 			else if (answer.contains("bacon grease"))
 				{
 					JOptionPane.showMessageDialog(frame,"Correct!"
-							+ "\nTop answer was: soap");
+							+ "\nTop answer was: soap or bleach");
 					counter++;
 				}
 			else
 				{
 					JOptionPane.showMessageDialog(frame,"Sorry that was not an answer. "
-							+ "\nTop answer was: soap");
+							+ "\nTop answer was: soap or bleach", null, 0, losing);
 					
 				}
 			JOptionPane.showMessageDialog(frame,  "Total points: " + counter);
 				
 		}
+		
+		public static void question5()
+			{
+				
+				answer = JOptionPane.showInputDialog("Name a famous wizard. \nCapitalize name.");
+				
+				if (answer.contains("Harry Potter"))
+					{
+						JOptionPane.showMessageDialog(frame,"Correct! Top answer.", null, 0, winning);
+						counter+=4;
+					}
+				else if (answer.contains("Merlin")) 
+					{
+						JOptionPane.showMessageDialog(frame,"Correct!"
+								+ "\nTop answer was: Harry Potter");
+						counter+=3;
+					}
+				else if (answer.contains("Gandalf"))
+					{
+						JOptionPane.showMessageDialog(frame,"Correct!"
+								+ "\nTop answer was: Harry Potter");
+						counter+=2;
+					}
+				else if (answer.contains("The Wizard of Oz") || answer.contains("Dr. Strange") )
+					{
+						JOptionPane.showMessageDialog(frame,"Correct!"
+								+ "\nTop answer was: Harry Potter");
+						counter++;
+					}
+				else
+					{
+						JOptionPane.showMessageDialog(frame,"Sorry that was not an answer. "
+								+ "\nTop answer was: Harry Potter", null, 0, losing);
+						
+					}
+				JOptionPane.showMessageDialog(frame,  "Total points: " + counter);
+					
+			}
+		
+		public static void question6()
+			{
+				
+				answer = JOptionPane.showInputDialog("Name another word for book.");
+				
+				if (answer.contains("novel"))
+					{
+						JOptionPane.showMessageDialog(frame,"Correct! Top answer.", null, 0, winning);
+						counter+=4;
+					}
+				else if (answer.contains("story")) 
+					{
+						JOptionPane.showMessageDialog(frame,"Correct!"
+								+ "\nTop answer was: novel");
+						counter+=3;
+					}
+				else if (answer.contains("paperback"))
+					{
+						JOptionPane.showMessageDialog(frame,"Correct!"
+								+ "\nTop answer was: novel");
+						counter+=2;
+					}
+				else if (answer.contains("volume") )
+					{
+						JOptionPane.showMessageDialog(frame,"Correct!"
+								+ "\nTop answer was: novel");
+						counter++;
+					}
+				else
+					{
+						JOptionPane.showMessageDialog(frame,"Sorry that was not an answer. "
+								+ "\nTop answer was: novel", null, 0, losing);
+						
+					}
+				JOptionPane.showMessageDialog(frame,  "Total points: " + counter);
+					
+			}
+		
 		
 
 	}
